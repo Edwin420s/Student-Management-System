@@ -43,7 +43,7 @@ A comprehensive web-based Student Management System built for Ikonex Academy ass
 
 ```
 student-management-system/
-├── Client/                 # Next.js full-stack application
+├── app/                   # Next.js full-stack application
 │   ├── src/
 │   │   ├── app/          # Next.js App Router (pages + API routes)
 │   │   │   ├── api/      # API routes (auth, students, streams, etc.)
@@ -63,7 +63,7 @@ student-management-system/
 ### 1. Install Dependencies
 
 ```bash
-cd Client
+cd app
 npm install
 ```
 
@@ -85,7 +85,7 @@ npx prisma db seed
 
 ### 3. Environment Variables
 
-Create `.env.local` in the `Client/` directory:
+Create `.env.local` in the `app/` directory:
 
 ```
 DATABASE_URL="postgresql://user:password@localhost:5432/ikonex_academy"
@@ -95,7 +95,7 @@ JWT_SECRET="your-super-secret-jwt-key-change-in-production"
 ### 4. Run Development Server
 
 ```bash
-cd Client
+cd app
 npm run dev
 ```
 

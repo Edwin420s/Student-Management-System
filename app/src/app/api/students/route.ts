@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
+import { studentSchema } from '@/lib/validations';
+import { ZodError } from 'zod';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -29,7 +31,15 @@ export async function POST(req: NextRequest) {
   const user = await getCurrentUser();
   if (!user || user.role !== 'ADMIN') return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
 
-  const data = await req.json();
-  const student = await prisma.student.create({ data });
-  return NextResponse.json(student);
+  try {
+    const data = await req.json();
+    const validatedData = studentSchema.parse(data);
+    const student = await prisma.student.create({ data: validatedData });
+    return NextResponse.json(student);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return NextResponse.json({ error: 'Validation failed', details: error.errors }, { status: 400 });
+    }
+    return NextResponse.json({ error: 'Failed to create student' }, { status: 500 });
+  }
 }
