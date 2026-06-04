@@ -4,24 +4,157 @@
 
 @layer base {
   :root {
+    /* Material Design 3 Color System - Light Theme */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 240 10% 3.9%;
+    
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-container: 210 100% 96%;
+    --primary-fixed: 210 100% 90%;
+    --primary-fixed-dim: 210 100% 80%;
+    
+    --secondary: 180 100% 35%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-container: 180 100% 95%;
+    --secondary-fixed: 180 100% 85%;
+    --secondary-fixed-dim: 180 100% 75%;
+    
+    --tertiary: 270 100% 35%;
+    --tertiary-foreground: 0 0% 100%;
+    --tertiary-container: 270 100% 95%;
+    --tertiary-fixed: 270 100% 85%;
+    --tertiary-fixed-dim: 270 100% 75%;
+    
+    --error: 0 84% 60%;
+    --error-container: 0 100% 96%;
+    --on-error: 0 0% 100%;
+    --on-error-container: 0 100% 10%;
+    
+    --surface: 0 0% 100%;
+    --surface-variant: 210 20% 96%;
+    --surface-container: 210 20% 94%;
+    --surface-container-low: 210 20% 96%;
+    --surface-container-high: 210 20% 92%;
+    --surface-container-highest: 210 20% 90%;
+    --surface-container-lowest: 210 20% 98%;
+    --surface-bright: 0 0% 100%;
+    --surface-dim: 210 20% 96%;
+    --surface-tint: 210 100% 50%;
+    
+    --on-surface: 240 10% 3.9%;
+    --on-surface-variant: 240 6% 45%;
+    --on-primary: 0 0% 100%;
+    --on-primary-container: 210 100% 10%;
+    --on-primary-fixed: 0 0% 100%;
+    --on-primary-fixed-variant: 210 100% 30%;
+    --on-secondary: 0 0% 100%;
+    --on-secondary-container: 180 100% 10%;
+    --on-secondary-fixed: 0 0% 100%;
+    --on-secondary-fixed-variant: 180 100% 30%;
+    --on-tertiary: 0 0% 100%;
+    --on-tertiary-container: 270 100% 10%;
+    --on-tertiary-fixed: 0 0% 100%;
+    --on-tertiary-fixed-variant: 270 100% 30%;
+    --on-background: 240 10% 3.9%;
+    
+    --outline: 240 6% 85%;
+    --outline-variant: 240 5% 90%;
+    
+    --inverse-surface: 240 10% 10%;
+    --inverse-on-surface: 0 0% 100%;
+    --inverse-primary: 210 100% 80%;
+    
+    --muted: 210 20% 96%;
+    --muted-foreground: 240 6% 45%;
+    
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --card-foreground: 240 10% 3.9%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 210 100% 50%;
+    
     --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Material Design 3 Color System - Dark Theme */
+    --background: 240 10% 10%;
+    --foreground: 0 0% 100%;
+    
+    --primary: 210 100% 70%;
+    --primary-foreground: 0 0% 100%;
+    --primary-container: 210 100% 25%;
+    --primary-fixed: 210 100% 30%;
+    --primary-fixed-dim: 210 100% 40%;
+    
+    --secondary: 180 100% 60%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-container: 180 100% 25%;
+    --secondary-fixed: 180 100% 30%;
+    --secondary-fixed-dim: 180 100% 40%;
+    
+    --tertiary: 270 100% 60%;
+    --tertiary-foreground: 0 0% 100%;
+    --tertiary-container: 270 100% 25%;
+    --tertiary-fixed: 270 100% 30%;
+    --tertiary-fixed-dim: 270 100% 40%;
+    
+    --error: 0 100% 70%;
+    --error-container: 0 100% 25%;
+    --on-error: 0 0% 100%;
+    --on-error-container: 0 100% 90%;
+    
+    --surface: 240 10% 10%;
+    --surface-variant: 240 10% 20%;
+    --surface-container: 240 10% 15%;
+    --surface-container-low: 240 10% 18%;
+    --surface-container-high: 240 10% 12%;
+    --surface-container-highest: 240 10% 10%;
+    --surface-container-lowest: 240 10% 22%;
+    --surface-bright: 240 10% 20%;
+    --surface-dim: 240 10% 8%;
+    --surface-tint: 210 100% 50%;
+    
+    --on-surface: 0 0% 100%;
+    --on-surface-variant: 240 5% 80%;
+    --on-primary: 0 0% 100%;
+    --on-primary-container: 210 100% 90%;
+    --on-primary-fixed: 0 0% 100%;
+    --on-primary-fixed-variant: 210 100% 60%;
+    --on-secondary: 0 0% 100%;
+    --on-secondary-container: 180 100% 90%;
+    --on-secondary-fixed: 0 0% 100%;
+    --on-secondary-fixed-variant: 180 100% 60%;
+    --on-tertiary: 0 0% 100%;
+    --on-tertiary-container: 270 100% 90%;
+    --on-tertiary-fixed: 0 0% 100%;
+    --on-tertiary-fixed-variant: 270 100% 60%;
+    --on-background: 0 0% 100%;
+    
+    --outline: 240 5% 60%;
+    --outline-variant: 240 5% 40%;
+    
+    --inverse-surface: 0 0% 100%;
+    --inverse-on-surface: 240 10% 10%;
+    --inverse-primary: 210 100% 30%;
+    
+    --muted: 240 10% 20%;
+    --muted-foreground: 240 5% 70%;
+    
+    --card: 240 10% 10%;
+    --card-foreground: 0 0% 100%;
+    
+    --popover: 240 10% 10%;
+    --popover-foreground: 0 0% 100%;
+    
+    --border: 240 5% 30%;
+    --input: 240 5% 30%;
+    --ring: 210 100% 70%;
   }
 }
 
@@ -30,6 +163,153 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body;
+  }
+}
+
+/* Custom Scrollbar */
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: hsl(var(--surface-container-low));
+    border-radius: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--outline-variant));
+    border-radius: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--outline));
+  }
+}
+
+/* Animations */
+@layer utilities {
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(33, 150, 243, 0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+  
+  .animate-slide-in {
+    animation: slide-in 0.3s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scale-in 0.2s ease-out;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s infinite;
+  }
+}
+
+/* Glass Effect */
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .dark .glass {
+    background: rgba(30, 30, 30, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Typography Enhancements */
+@layer base {
+  .font-display {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  .font-headline {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  .font-body {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  .font-label {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  .font-mono-data {
+    font-family: 'Geist', 'JetBrains Mono', 'Fira Code', monospace;
+  }
+}
+
+/* Focus Styles */
+@layer base {
+  *:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+  
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+}
+
+/* Smooth Transitions */
+@layer base {
+  * {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
   }
 }
