@@ -36,6 +36,7 @@ export const getSubjectsByStream = (streamId: string) => fetcher(`/subjects?stre
 // Exams
 export const getExams = () => fetcher('/exams');
 export const createExam = (data: any) => fetcher('/exams', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } });
+export const deleteExam = (id: string) => fetcher(`/exams/${id}`, { method: 'DELETE' });
 
 // Scores
 export const bulkSaveScores = (entries: any[]) => fetcher('/scores', { method: 'POST', body: JSON.stringify({ entries }), headers: { 'Content-Type': 'application/json' } });
