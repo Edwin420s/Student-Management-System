@@ -36,11 +36,16 @@ export default function StudentsPage() {
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Students</h1>
-        <Link href="/students/new">
-          <Button>
-            <Plus className="mr-2 h-4 w-4" /> Add Student
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={() => window.open('/api/export/students', '_blank')}>
+            Export Excel
           </Button>
-        </Link>
+          <Link href="/students/new">
+            <Button>
+              <Plus className="mr-2 h-4 w-4" /> Add Student
+            </Button>
+          </Link>
+        </div>
       </div>
       <div className="flex gap-2">
         <Input placeholder="Search by name or admission number..." value={search} onChange={(e) => setSearch(e.target.value)} className="max-w-sm" />

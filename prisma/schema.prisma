@@ -36,11 +36,13 @@ model Student {
   dob             DateTime?
   email           String?
   phone           String?
+  photo           String?
   streamId        String
   stream          ClassStream @relation(fields: [streamId], references: [id], onDelete: Cascade)
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
   scores          Score[]
+  verifications   ReportVerification[]
 }
 
 model Subject {
@@ -65,14 +67,15 @@ model StreamSubject {
 }
 
 model Exam {
-  id        String   @id @default(cuid())
-  name      String
-  term      String
-  year      Int
-  type      String   // CAT, MIDTERM, ENDTERM
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  scores    Score[]
+  id            String   @id @default(cuid())
+  name          String
+  term          String
+  year          Int
+  type          String   // CAT, MIDTERM, ENDTERM
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  scores        Score[]
+  verifications ReportVerification[]
 }
 
 model Score {
@@ -108,4 +111,29 @@ model AuditLog {
   entityId  String
   details   Json?
   createdAt DateTime @default(now())
+}
+
+model SchoolSettings {
+  id              String   @id @default(cuid())
+  schoolName      String   @default("Ikonex Academy")
+  schoolLogo      String?
+  principalName   String?
+  academicYear    String
+  currentTerm     String   @default("1")
+  address         String?
+  phone           String?
+  email           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model ReportVerification {
+  id           String   @id @default(cuid())
+  reportId     String   @unique
+  studentId    String
+  examId       String
+  verifiedAt   DateTime @default(now())
+  student      Student  @relation(fields: [studentId], references: [id])
+  exam         Exam     @relation(fields: [examId], references: [id])
+  createdAt    DateTime @default(now())
 }
