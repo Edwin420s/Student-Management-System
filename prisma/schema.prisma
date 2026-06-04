@@ -43,6 +43,9 @@ model Student {
   updatedAt       DateTime   @updatedAt
   scores          Score[]
   verifications   ReportVerification[]
+
+  @@index([streamId])
+  @@index([admissionNumber])
 }
 
 model Subject {
@@ -63,6 +66,8 @@ model StreamSubject {
   stream    ClassStream @relation(fields: [streamId], references: [id], onDelete: Cascade)
   subject   Subject     @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 
+  @@index([streamId])
+  @@index([subjectId])
   @@unique([streamId, subjectId])
 }
 
@@ -90,6 +95,9 @@ model Score {
   subject   Subject  @relation(fields: [subjectId], references: [id])
   exam      Exam     @relation(fields: [examId], references: [id])
 
+  @@index([examId])
+  @@index([subjectId])
+  @@index([studentId])
   @@unique([studentId, subjectId, examId])
 }
 

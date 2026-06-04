@@ -7,7 +7,14 @@ export async function getSubjectRanking(streamId: string, subjectId: string, exa
   });
   const sorted = scores.sort((a, b) => b.score - a.score);
   const ranking = new Map<string, number>();
-  sorted.forEach((s, idx) => ranking.set(s.studentId, idx + 1));
+  
+  let currentRank = 1;
+  for (let i = 0; i < sorted.length; i++) {
+    if (i > 0 && sorted[i].score < sorted[i - 1].score) {
+      currentRank = i + 1;
+    }
+    ranking.set(sorted[i].studentId, currentRank);
+  }
   return ranking;
 }
 
@@ -23,7 +30,14 @@ export async function getClassRanking(streamId: string, examId: string) {
   });
   const sorted = averages.sort((a, b) => b.average - a.average);
   const ranking = new Map<string, number>();
-  sorted.forEach((s, idx) => ranking.set(s.studentId, idx + 1));
+  
+  let currentRank = 1;
+  for (let i = 0; i < sorted.length; i++) {
+    if (i > 0 && sorted[i].average < sorted[i - 1].average) {
+      currentRank = i + 1;
+    }
+    ranking.set(sorted[i].studentId, currentRank);
+  }
   return ranking;
 }
 

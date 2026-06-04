@@ -4,11 +4,13 @@ A comprehensive web-based Student Management System built for Ikonex Academy ass
 
 ## Tech Stack
 
-- **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS, Shadcn UI
-- **Backend**: Next.js API Routes, Prisma ORM
-- **Database**: PostgreSQL
+- **Framework**: Next.js 15 (App Router) - Full-stack application with built-in API routes
+- **Language**: TypeScript
+- **UI**: Tailwind CSS, Shadcn UI
+- **Database**: PostgreSQL with Prisma ORM
 - **Authentication**: JWT with HttpOnly cookies
 - **PDF Generation**: React PDF
+- **Charts**: Recharts
 
 ## Features
 
@@ -41,17 +43,14 @@ A comprehensive web-based Student Management System built for Ikonex Academy ass
 
 ```
 student-management-system/
-├── Client/                 # Frontend Next.js application
+├── Client/                 # Next.js full-stack application
 │   ├── src/
-│   │   ├── app/          # Next.js App Router pages
+│   │   ├── app/          # Next.js App Router (pages + API routes)
+│   │   │   ├── api/      # API routes (auth, students, streams, etc.)
+│   │   │   ├── (dashboard)/  # Dashboard pages
+│   │   │   └── (auth)/  # Authentication pages
 │   │   ├── components/   # React components
-│   │   └── lib/          # Utilities and API client
-│   ├── package.json
-│   └── tsconfig.json
-├── server/                # Backend Next.js API application
-│   ├── src/
-│   │   ├── app/api/      # API routes
-│   │   └── lib/          # Server utilities
+│   │   └── lib/          # Utilities (auth, ranking, grading, pdf, etc.)
 │   ├── package.json
 │   └── tsconfig.json
 └── prisma/                # Database schema and seed
@@ -64,16 +63,8 @@ student-management-system/
 ### 1. Install Dependencies
 
 ```bash
-# Install frontend dependencies
 cd Client
 npm install
-
-# Install backend dependencies
-cd ../server
-npm install
-
-# Install Prisma CLI globally (if not already installed)
-npm install -g prisma
 ```
 
 ### 2. Database Setup
@@ -94,34 +85,21 @@ npx prisma db seed
 
 ### 3. Environment Variables
 
-Create `.env.local` files in both `Client/` and `server/`:
+Create `.env.local` in the `Client/` directory:
 
-**Client/.env.local:**
 ```
 DATABASE_URL="postgresql://user:password@localhost:5432/ikonex_academy"
 JWT_SECRET="your-super-secret-jwt-key-change-in-production"
 ```
 
-**server/.env.local:**
-```
-DATABASE_URL="postgresql://user:password@localhost:5432/ikonex_academy"
-JWT_SECRET="your-super-secret-jwt-key-change-in-production"
-```
-
-### 4. Run Development Servers
+### 4. Run Development Server
 
 ```bash
-# Start frontend (port 3000)
 cd Client
-npm run dev
-
-# Start backend (port 3001)
-cd ../server
 npm run dev
 ```
 
-The frontend will be available at `http://localhost:3000`
-The backend API will be available at `http://localhost:3001`
+The application will be available at `http://localhost:3000`
 
 ### 5. Default Login
 
@@ -201,21 +179,17 @@ The system uses the following main entities:
 
 ## Deployment
 
-### Frontend (Vercel)
+### Vercel (Recommended)
 1. Connect GitHub repository to Vercel
-2. Set environment variables
+2. Set environment variables (DATABASE_URL, JWT_SECRET)
 3. Deploy
+4. Run migrations on production: `npx prisma migrate deploy`
 
-### Backend (Railway/VPS)
-1. Deploy PostgreSQL database
-2. Set environment variables
-3. Deploy Next.js API server
-
-### Database Migrations
-Run migrations on production:
-```bash
-npx prisma migrate deploy
-```
+### Railway (Alternative)
+1. Deploy PostgreSQL database on Railway
+2. Deploy Next.js application on Railway
+3. Set environment variables
+4. Run migrations on production: `npx prisma migrate deploy`
 
 ## Assessment Requirements Met
 
@@ -228,11 +202,11 @@ npx prisma migrate deploy
 - Reporting (Generate PDF Report Cards, PDF class performance reports)
 
 ### Recommended Technologies Used
-- Frontend: Next.js 15, React, TypeScript ✓
-- Backend: Node.js (Next.js API Routes) ✓
+- Framework: Next.js 15 (App Router) - Full-stack with built-in API routes ✓
+- Language: TypeScript ✓
 - Database: PostgreSQL with Prisma ORM ✓
 - Version Control: Git/GitHub ✓
-- Deployment: Ready for Vercel (frontend) and Railway/VPS (backend) ✓
+- Deployment: Ready for Vercel or Railway (single unified deployment) ✓
 
 ### Additional Production-Ready Features
 - JWT Authentication with HttpOnly cookies

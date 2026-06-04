@@ -49,8 +49,8 @@ export function ReportCardPDF({ student, scores, exam, ranking, total, average, 
         </View>
         <View style={{ marginTop: 20 }}>
           <Text>Total Marks: {total}</Text>
-          <Text>Average: {average.toFixed(2)}</Text>
-          <Text>Position in Class: {ranking}</Text>
+          <Text>Average: {isNaN(average) ? 'N/A' : average.toFixed(2)}</Text>
+          <Text>Position in Class: {ranking || 'N/A'}</Text>
           <Text>Grade: {grade}</Text>
           <Text>Remark: {remark}</Text>
         </View>
