@@ -4,12 +4,12 @@ import { getCurrentUser } from '@/lib/auth';
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const stream = await prisma.classStream.findUnique({
+  const student = await prisma.student.findUnique({
     where: { id },
-    include: { students: true, subjects: { include: { subject: true } } },
+    include: { stream: true, scores: { include: { subject: true, exam: true } } },
   });
-  if (!stream) return NextResponse.json({ error: 'Not found' }, { status: 404 });
-  return NextResponse.json(stream);
+  if (!student) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  return NextResponse.json(student);
 }
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -17,9 +17,9 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   if (!user || user.role !== 'ADMIN') return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
 
   const { id } = await params;
-  const { name, description } = await req.json();
-  const stream = await prisma.classStream.update({ where: { id }, data: { name, description } });
-  return NextResponse.json(stream);
+  const data = await req.json();
+  const student = await prisma.student.update({ where: { id }, data });
+  return NextResponse.json(student);
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -27,6 +27,6 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   if (!user || user.role !== 'ADMIN') return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
 
   const { id } = await params;
-  await prisma.classStream.delete({ where: { id } });
+  await prisma.student.delete({ where: { id } });
   return NextResponse.json({ success: true });
 }

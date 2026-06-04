@@ -12,7 +12,6 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   const user = await getCurrentUser();
   if (!user || user.role !== 'ADMIN') return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
-
   const { name, description } = await req.json();
   const stream = await prisma.classStream.create({ data: { name, description } });
   return NextResponse.json(stream);

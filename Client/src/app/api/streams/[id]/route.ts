@@ -15,7 +15,6 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const user = await getCurrentUser();
   if (!user || user.role !== 'ADMIN') return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
-
   const { id } = await params;
   const { name, description } = await req.json();
   const stream = await prisma.classStream.update({ where: { id }, data: { name, description } });
@@ -25,7 +24,6 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const user = await getCurrentUser();
   if (!user || user.role !== 'ADMIN') return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
-
   const { id } = await params;
   await prisma.classStream.delete({ where: { id } });
   return NextResponse.json({ success: true });
