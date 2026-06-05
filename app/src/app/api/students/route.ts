@@ -34,12 +34,22 @@ export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
     const validatedData = studentSchema.parse(data);
-    const student = await prisma.student.create({ data: validatedData });
+    
+    // Convert date string to Date object if provided
+    const studentData = {
+      ...validatedData,
+      dob: validatedData.dob ? new Date(validatedData.dob) : null,
+      email: validatedData.email || null,
+      phone: validatedData.phone || null,
+    };
+    
+    const student = await prisma.student.create({ data: studentData });
     return NextResponse.json(student);
   } catch (error) {
     if (error instanceof ZodError) {
       return NextResponse.json({ error: 'Validation failed', details: error.errors }, { status: 400 });
     }
-    return NextResponse.json({ error: 'Failed to create student' }, { status: 500 });
+    console.error('Student creation error:', error);
+    return NextResponse.json({ error: 'Failed to create student', message: error instanceof Error ? error.message : 'Unknown error' }, { status: 500 });
   }
 }

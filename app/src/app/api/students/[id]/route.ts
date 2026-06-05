@@ -18,7 +18,14 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 
   const { id } = await params;
   const data = await req.json();
-  const student = await prisma.student.update({ where: { id }, data });
+  
+  // Convert date string to Date object if provided
+  const studentData = {
+    ...data,
+    dob: data.dob ? new Date(data.dob) : null,
+  };
+  
+  const student = await prisma.student.update({ where: { id }, data: studentData });
   return NextResponse.json(student);
 }
 
