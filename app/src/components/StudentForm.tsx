@@ -60,7 +60,7 @@ export function StudentForm({ initialData }: { initialData?: any }) {
         <div><Label>Admission Number</Label><Input required value={formData.admissionNumber} onChange={(e) => setFormData({...formData, admissionNumber: e.target.value})} /></div>
         <div><Label>First Name</Label><Input required value={formData.firstName} onChange={(e) => setFormData({...formData, firstName: e.target.value})} /></div>
         <div><Label>Last Name</Label><Input required value={formData.lastName} onChange={(e) => setFormData({...formData, lastName: e.target.value})} /></div>
-        <div><Label>Gender</Label><Select value={formData.gender} onValueChange={(v) => setFormData({...formData, gender: v})}><SelectTrigger><SelectValue placeholder="Select" /></SelectTrigger><SelectContent><SelectItem value="MALE">Male</SelectItem><SelectItem value="FEMALE">Female</SelectItem></SelectContent></Select></div>
+        <div><Label>Gender</Label><Select value={formData.gender} onValueChange={(v) => setFormData({...formData, gender: v})}><SelectTrigger><SelectValue placeholder="Select" /></SelectTrigger><SelectContent><SelectItem value="Male">Male</SelectItem><SelectItem value="Female">Female</SelectItem></SelectContent></Select></div>
         <div><Label>Date of Birth</Label><Input type="date" value={formData.dob} onChange={(e) => setFormData({...formData, dob: e.target.value})} /></div>
         <div><Label>Email</Label><Input type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} /></div>
         <div><Label>Phone</Label><Input value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} /></div>

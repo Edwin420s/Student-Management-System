@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getStreams, getSubjectsByStream, getStudentsByStream, getExams, bulkSaveScores } from '@/lib/api';
-import { ArrowLeft, Download, Save, CheckCircle, Error as ErrorIcon } from 'lucide-react';
+import { ArrowLeft, Download, Save, CheckCircle, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
 export default function BulkScorePage() {
@@ -157,7 +157,7 @@ export default function BulkScorePage() {
       {/* Warning Banner */}
       {errorCount > 0 && (
         <div className="bg-error-container text-on-error-container px-container-margin py-3 flex items-center gap-3 animate-pulse">
-          <ErrorIcon className="h-5 w-5" />
+          <AlertCircle className="h-5 w-5" />
           <p className="font-body-sm font-semibold">Validation errors detected. Please fix highlighted fields.</p>
         </div>
       )}
