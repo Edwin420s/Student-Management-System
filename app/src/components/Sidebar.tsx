@@ -55,8 +55,9 @@ export function Sidebar() {
           <span className="font-body-md text-body-md">Help Center</span>
         </Link>
         <button
-          onClick={() => {
-            // Handle logout
+          onClick={async () => {
+            await fetch('/api/auth/logout', { method: 'POST' });
+            window.location.href = '/login';
           }}
           className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors duration-200 text-on-surface-variant dark:text-on-secondary-fixed-variant hover:bg-on-surface-variant/10 hover:text-on-primary w-full"
         >
