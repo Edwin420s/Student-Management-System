@@ -14,7 +14,7 @@ const navItems = [
   { name: 'Scores', href: '/scores/bulk', icon: Award },
   { name: 'Analytics', href: '/analytics', icon: FileBarChart },
   { name: 'Reports', href: '/reports', icon: FileText },
-  { name: 'Settings', href: '/settings', icon: Settings },
+  { name: 'Settings', href: '/settings/school', icon: Settings },
 ];
 
 export function Sidebar() {

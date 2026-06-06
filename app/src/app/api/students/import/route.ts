@@ -29,6 +29,16 @@ export async function POST(req: NextRequest) {
         continue;
       }
 
+      // Check for duplicate admission number
+      const existingStudent = await prisma.student.findUnique({
+        where: { admissionNumber: row.admissionNumber },
+      });
+
+      if (existingStudent) {
+        errors.push({ row: row.admissionNumber, error: `Admission number ${row.admissionNumber} already exists` });
+        continue;
+      }
+
       const student = await prisma.student.create({
         data: {
           admissionNumber: row.admissionNumber,
