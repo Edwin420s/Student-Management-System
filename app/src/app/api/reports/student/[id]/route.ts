@@ -4,8 +4,12 @@ import { getStudentTotalAndAverage, getClassRanking } from '@/lib/ranking';
 import { getGradeAndRemark } from '@/lib/grading';
 import { renderToBuffer } from '@react-pdf/renderer';
 import { ReportCardPDF } from '@/lib/pdf/ReportCardPDF';
+import { getCurrentUser } from '@/lib/auth';
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const user = await getCurrentUser();
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
   const { id } = await params;
   const student = await prisma.student.findUnique({
     where: { id },

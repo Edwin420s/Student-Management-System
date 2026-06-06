@@ -15,26 +15,30 @@ export async function POST(req: NextRequest) {
   const text = await file.text();
   const results = Papa.parse(text, { header: true });
 
+  // Fetch all streams into memory to avoid N+1 query problem
+  const allStreams = await prisma.classStream.findMany();
+  const streamMap = new Map(allStreams.map((s: any) => [s.name, s.id]));
+
+  // Fetch all existing admission numbers to avoid N+1 duplicate check
+  const existingAdmissionNumbers = new Set(
+    (await prisma.student.findMany({ select: { admissionNumber: true } }))
+      .map((s: any) => s.admissionNumber)
+  );
+
   const students = [];
   const errors = [];
 
   for (const row of results.data as any[]) {
     try {
-      const stream = await prisma.classStream.findFirst({
-        where: { name: row.stream },
-      });
+      const streamId = streamMap.get(row.stream);
 
-      if (!stream) {
+      if (!streamId) {
         errors.push({ row: row.admissionNumber, error: 'Stream not found' });
         continue;
       }
 
-      // Check for duplicate admission number
-      const existingStudent = await prisma.student.findUnique({
-        where: { admissionNumber: row.admissionNumber },
-      });
-
-      if (existingStudent) {
+      // Check for duplicate admission number using in-memory set
+      if (existingAdmissionNumbers.has(row.admissionNumber)) {
         errors.push({ row: row.admissionNumber, error: `Admission number ${row.admissionNumber} already exists` });
         continue;
       }
@@ -48,10 +52,11 @@ export async function POST(req: NextRequest) {
           dob: row.dob ? new Date(row.dob) : null,
           email: row.email || null,
           phone: row.phone || null,
-          streamId: stream.id,
+          streamId: streamId,
         },
       });
       students.push(student);
+      existingAdmissionNumbers.add(row.admissionNumber); // Add to set to catch duplicates within CSV
     } catch (error) {
       errors.push({ row: row.admissionNumber, error: 'Failed to create student' });
     }

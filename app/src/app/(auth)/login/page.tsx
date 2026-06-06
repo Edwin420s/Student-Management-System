@@ -21,8 +21,12 @@ export default function LoginPage() {
     try {
       await login(email, password);
       router.push('/');
-    } catch (err: any) {
-      setError(err.message || 'Invalid credentials');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'Invalid credentials');
+      } else {
+        setError('Invalid credentials');
+      }
     } finally {
       setLoading(false);
     }

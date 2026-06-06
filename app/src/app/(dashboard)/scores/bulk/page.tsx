@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -10,13 +10,17 @@ import Link from 'next/link';
 export default function BulkScorePage() {
   const [streamId, setStreamId] = useState('');
   const [examId, setExamId] = useState('');
-  const [students, setStudents] = useState([]);
-  const [subjects, setSubjects] = useState([]);
-  const [streams, setStreams] = useState([]);
-  const [exams, setExams] = useState([]);
+  const [students, setStudents] = useState<any[]>([]);
+  const [subjects, setSubjects] = useState<any[]>([]);
+  const [streams, setStreams] = useState<any[]>([]);
+  const [exams, setExams] = useState<any[]>([]);
   const [scores, setScores] = useState<Record<string, Record<string, number>>>({});
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  
+  // Local state for input values to prevent full re-renders on every keystroke
+  const [inputValues, setInputValues] = useState<Record<string, string>>({});
+  const debounceTimers = useRef<Record<string, NodeJS.Timeout>>({});
 
   useEffect(() => {
     getStreams().then(setStreams);
@@ -36,43 +40,64 @@ export default function BulkScorePage() {
       });
       setScores({});
       setErrors({});
+      setInputValues({});
     }
   }, [streamId]);
 
-  const handleScoreChange = (studentId: string, subjectId: string, value: string) => {
-    const num = parseFloat(value);
-    const errorKey = `${studentId}-${subjectId}`;
+  const handleScoreChange = useCallback((studentId: string, subjectId: string, value: string) => {
+    const inputKey = `${studentId}-${subjectId}`;
     
-    if (value === '') {
-      setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[errorKey];
-        return newErrors;
-      });
+    // Update local input state immediately for responsive UI
+    setInputValues(prev => ({ ...prev, [inputKey]: value }));
+    
+    // Clear existing debounce timer
+    if (debounceTimers.current[inputKey]) {
+      clearTimeout(debounceTimers.current[inputKey]);
+    }
+    
+    // Debounce the actual score update
+    debounceTimers.current[inputKey] = setTimeout(() => {
+      const num = parseFloat(value);
+      const errorKey = `${studentId}-${subjectId}`;
+      
+      if (value === '') {
+        setErrors(prev => {
+          const newErrors = { ...prev };
+          delete newErrors[errorKey];
+          return newErrors;
+        });
+        setScores((prev: any) => ({
+          ...prev,
+          [studentId]: { ...prev[studentId], [subjectId]: undefined }
+        }));
+        return;
+      }
+      
+      if (isNaN(num)) return;
+      
+      if (num < 0 || num > 100) {
+        setErrors(prev => ({ ...prev, [errorKey]: 'Score must be between 0 and 100' }));
+      } else {
+        setErrors(prev => {
+          const newErrors = { ...prev };
+          delete newErrors[errorKey];
+          return newErrors;
+        });
+      }
+      
       setScores(prev => ({
         ...prev,
-        [studentId]: { ...prev[studentId], [subjectId]: undefined }
+        [studentId]: { ...prev[studentId], [subjectId]: num }
       }));
-      return;
-    }
-    
-    if (isNaN(num)) return;
-    
-    if (num < 0 || num > 100) {
-      setErrors(prev => ({ ...prev, [errorKey]: 'Score must be between 0 and 100' }));
-    } else {
-      setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[errorKey];
-        return newErrors;
-      });
-    }
-    
-    setScores(prev => ({
-      ...prev,
-      [studentId]: { ...prev[studentId], [subjectId]: num }
-    }));
-  };
+    }, 300); // 300ms debounce
+  }, []);
+
+  // Cleanup debounce timers on unmount
+  useEffect(() => {
+    return () => {
+      Object.values(debounceTimers.current).forEach(timer => clearTimeout(timer));
+    };
+  }, []);
 
   const getGrade = (score: number) => {
     if (score >= 80) return { grade: 'A', color: 'text-secondary' };
@@ -199,6 +224,8 @@ export default function BulkScorePage() {
                       {student.admissionNumber}
                     </TableCell>
                     {subjects.map((subject: any) => {
+                      const inputKey = `${student.id}-${subject.id}`;
+                      const inputValue = inputValues[inputKey];
                       const score = scores[student.id]?.[subject.id];
                       const errorKey = `${student.id}-${subject.id}`;
                       const hasError = errors[errorKey];
@@ -212,7 +239,7 @@ export default function BulkScorePage() {
                               className={`w-20 px-3 py-1.5 bg-surface-container-low border rounded font-mono-data text-center focus:ring-2 focus:ring-primary/20 outline-none transition-all ${
                                 hasError ? 'border-error border-2 text-error' : 'border-outline-variant'
                               }`}
-                              value={score !== undefined ? score : ''}
+                              value={inputValue !== undefined ? inputValue : (score !== undefined ? score : '')}
                               onChange={(e) => handleScoreChange(student.id, subject.id, e.target.value)}
                               min="0"
                               max="100"
