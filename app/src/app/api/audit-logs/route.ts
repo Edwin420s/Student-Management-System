@@ -11,7 +11,6 @@ export async function GET(req: NextRequest) {
 
   const logs = await prisma.auditLog.findMany({
     where: entity ? { entity } : undefined,
-    include: { user: { select: { name: true, email: true } } },
     orderBy: { createdAt: 'desc' },
     take: 100,
   });
