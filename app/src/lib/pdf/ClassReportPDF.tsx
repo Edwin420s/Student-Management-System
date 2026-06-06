@@ -1,4 +1,4 @@
-import { Document, Page, Text, View, StyleSheet, Table, TableCell, TableHeader, TableRow } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 interface ClassReportPDFProps {
   stream: any;
@@ -19,9 +19,9 @@ export function ClassReportPDF({ stream, exam, students, rankings, classMean }: 
     table: { width: '100%', borderCollapse: 'collapse' },
     tableHeader: { backgroundColor: '#f0f0f0', fontWeight: 'bold' },
     cell: { padding: 8, border: '1 solid #ddd', fontSize: 10 },
-    row: { '&:nth-child(even)': { backgroundColor: '#f9f9f9' } },
-    stats: { display: 'flex', justifyContent: 'space-between', marginBottom: 20 },
-    statBox: { padding: 10, backgroundColor: '#f5f5f5', borderRadius: 5, width: '30%' },
+    row: { flexDirection: 'row' },
+    stats: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 },
+    statBox: { padding: 10, backgroundColor: '#f5f5f5', width: '30%' },
     statLabel: { fontSize: 10, color: '#666' },
     statValue: { fontSize: 20, fontWeight: 'bold' },
   });
@@ -51,26 +51,24 @@ export function ClassReportPDF({ stream, exam, students, rankings, classMean }: 
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Student Performance</Text>
-          <Table style={styles.table}>
-            <TableHeader>
-              <TableRow style={styles.tableHeader}>
-                <TableCell style={styles.cell}>Rank</TableCell>
-                <TableCell style={styles.cell}>Admission No</TableCell>
-                <TableCell style={styles.cell}>Name</TableCell>
-                <TableCell style={styles.cell}>Total</TableCell>
-                <TableCell style={styles.cell}>Average</TableCell>
-              </TableRow>
-            </TableHeader>
-            {rankings.map((student, index) => (
-              <TableRow key={student.id} style={styles.row}>
-                <TableCell style={styles.cell}>{index + 1}</TableCell>
-                <TableCell style={styles.cell}>{student.admissionNumber}</TableCell>
-                <TableCell style={styles.cell}>{student.firstName} {student.lastName}</TableCell>
-                <TableCell style={styles.cell}>{student.total.toFixed(1)}</TableCell>
-                <TableCell style={styles.cell}>{student.average.toFixed(1)}</TableCell>
-              </TableRow>
+          <View style={styles.table}>
+            <View style={[styles.row, styles.tableHeader]}>
+              <Text style={[styles.cell, { flex: 0.5 }]}>Rank</Text>
+              <Text style={[styles.cell, { flex: 1 }]}>Admission No</Text>
+              <Text style={[styles.cell, { flex: 1.5 }]}>Name</Text>
+              <Text style={[styles.cell, { flex: 0.5 }]}>Total</Text>
+              <Text style={[styles.cell, { flex: 0.5 }]}>Average</Text>
+            </View>
+            {rankings.map((student: any, index: number) => (
+              <View key={student.id} style={styles.row}>
+                <Text style={[styles.cell, { flex: 0.5 }]}>{index + 1}</Text>
+                <Text style={[styles.cell, { flex: 1 }]}>{student.admissionNumber}</Text>
+                <Text style={[styles.cell, { flex: 1.5 }]}>{student.firstName} {student.lastName}</Text>
+                <Text style={[styles.cell, { flex: 0.5 }]}>{student.total.toFixed(1)}</Text>
+                <Text style={[styles.cell, { flex: 0.5 }]}>{student.average.toFixed(1)}</Text>
+              </View>
             ))}
-          </Table>
+          </View>
         </View>
       </Page>
     </Document>
