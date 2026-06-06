@@ -19,7 +19,6 @@ export async function getAuditLogs(userId?: string, entity?: string) {
   
   return prisma.auditLog.findMany({
     where,
-    include: { user: { select: { name: true, email: true } } },
     orderBy: { createdAt: 'desc' },
     take: 100,
   });
