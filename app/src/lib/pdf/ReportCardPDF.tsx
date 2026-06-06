@@ -1,5 +1,41 @@
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
+interface Student {
+  firstName: string;
+  lastName: string;
+  admissionNumber: string;
+  stream: {
+    name: string;
+  };
+}
+
+interface Score {
+  subjectId: string;
+  subject: {
+    name: string;
+  };
+  score: number;
+  grade: string;
+  remark: string;
+}
+
+interface Exam {
+  name: string;
+  term: string;
+  year: number;
+}
+
+interface ReportCardPDFProps {
+  student: Student;
+  scores: Score[];
+  exam: Exam | null;
+  ranking: number;
+  total: number;
+  average: number;
+  grade: string;
+  remark: string;
+}
+
 const styles = StyleSheet.create({
   page: { padding: 30, fontSize: 12, fontFamily: 'Helvetica' },
   header: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20, borderBottom: 1, paddingBottom: 10 },
@@ -18,7 +54,7 @@ const styles = StyleSheet.create({
   footer: { marginTop: 30, textAlign: 'center', fontSize: 10, color: 'gray' },
 });
 
-export function ReportCardPDF({ student, scores, exam, ranking, total, average, grade, remark }) {
+export function ReportCardPDF({ student, scores, exam, ranking, total, average, grade, remark }: ReportCardPDFProps) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -29,7 +65,7 @@ export function ReportCardPDF({ student, scores, exam, ranking, total, average, 
         <View style={styles.row}><Text style={styles.label}>Student Name:</Text><Text style={styles.value}>{student.firstName} {student.lastName}</Text></View>
         <View style={styles.row}><Text style={styles.label}>Admission No:</Text><Text style={styles.value}>{student.admissionNumber}</Text></View>
         <View style={styles.row}><Text style={styles.label}>Class Stream:</Text><Text style={styles.value}>{student.stream.name}</Text></View>
-        <View style={styles.row}><Text style={styles.label}>Exam:</Text><Text style={styles.value}>{exam.name} - Term {exam.term} {exam.year}</Text></View>
+        <View style={styles.row}><Text style={styles.label}>Exam:</Text><Text style={styles.value}>{exam ? `${exam.name} - Term ${exam.term} ${exam.year}` : 'N/A'}</Text></View>
         <Text style={styles.title}>Academic Performance</Text>
         <View style={styles.table}>
           <View style={styles.tableHeader}>
