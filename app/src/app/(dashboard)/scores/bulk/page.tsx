@@ -14,7 +14,7 @@ export default function BulkScorePage() {
   const [subjects, setSubjects] = useState<any[]>([]);
   const [streams, setStreams] = useState<any[]>([]);
   const [exams, setExams] = useState<any[]>([]);
-  const [scores, setScores] = useState<Record<string, Record<string, number>>>({});
+  const [scores, setScores] = useState<Record<string, Record<string, number | undefined>>>({});
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   
