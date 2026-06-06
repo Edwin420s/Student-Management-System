@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { getStreams, getSubjectsByStream, getStudentsByStream, getExams, bulkSaveScores } from '@/lib/api';
+import { getStreams, getSubjectsByStream, getStudentsByStream, getExams, bulkSaveScores, getSubjects } from '@/lib/api';
 import { ArrowLeft, Download, Save, CheckCircle, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
@@ -26,7 +26,14 @@ export default function BulkScorePage() {
   useEffect(() => {
     if (streamId) {
       getStudentsByStream(streamId).then(setStudents);
-      getSubjectsByStream(streamId).then(setSubjects);
+      getSubjectsByStream(streamId).then(data => {
+        if (data.length === 0) {
+          // If no subjects assigned to stream, load all subjects
+          getSubjects().then(setSubjects);
+        } else {
+          setSubjects(data);
+        }
+      });
       setScores({});
       setErrors({});
     }

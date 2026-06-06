@@ -17,12 +17,12 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   if (!examId) return NextResponse.json({ error: 'examId required' }, { status: 400 });
 
   const exam = await prisma.exam.findUnique({ where: { id: examId } });
-  const scoresForExam = student.scores.filter(s => s.examId === examId);
+  const scoresForExam = student.scores.filter((s: any) => s.examId === examId);
   const { total, average } = await getStudentTotalAndAverage(student.id, examId);
   const rankingMap = await getClassRanking(student.streamId, examId);
   const position = rankingMap.get(student.id) || 0;
 
-  const scoresWithGrade = await Promise.all(scoresForExam.map(async s => {
+  const scoresWithGrade = await Promise.all(scoresForExam.map(async (s: any) => {
     const { grade, remark } = await getGradeAndRemark(s.score);
     return { ...s, grade, remark };
   }));
@@ -40,10 +40,10 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     remark
   }));
 
-  return new NextResponse(pdfBuffer, {
+  return new NextResponse(pdfBuffer as any, {
     headers: {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': `inline; filename=report_${student.admissionNumber}.pdf`,
+      'Content-Disposition': `attachment; filename=report_${student.admissionNumber}.pdf`,
     },
   });
 }
