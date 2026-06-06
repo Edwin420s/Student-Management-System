@@ -66,7 +66,7 @@ export default function BulkScorePage() {
           delete newErrors[errorKey];
           return newErrors;
         });
-        setScores((prev: any) => ({
+        setScores(prev => ({
           ...prev,
           [studentId]: { ...prev[studentId], [subjectId]: undefined }
         }));
