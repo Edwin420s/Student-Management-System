@@ -21,7 +21,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ stre
   if (!stream) return NextResponse.json({ error: 'Stream not found' }, { status: 404 });
 
   const exam = await prisma.exam.findUnique({ where: { id: examId } });
-  
+  if (!exam) return NextResponse.json({ error: 'Exam not found' }, { status: 404 });
+
   // Calculate rankings and statistics
   const studentsWithStats = stream.students.map((student: any) => {
     const total = student.scores.reduce((sum: number, s: any) => sum + s.score, 0);

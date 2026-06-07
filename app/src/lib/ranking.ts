@@ -8,9 +8,13 @@ export async function getSubjectRanking(streamId: string, subjectId: string, exa
   const sorted = scores.sort((a: any, b: any) => b.score - a.score);
   const ranking = new Map<string, number>();
   
+  // Standard competition ranking (1, 1, 3, 4 for ties)
+  let rank = 1;
   for (let i = 0; i < sorted.length; i++) {
-    // Standard competition ranking: rank is position + 1 (1, 1, 3, 4 for ties)
-    ranking.set(sorted[i].studentId, i + 1);
+    if (i > 0 && sorted[i].score !== sorted[i - 1].score) {
+      rank = i + 1;
+    }
+    ranking.set(sorted[i].studentId, rank);
   }
   return ranking;
 }
@@ -28,9 +32,13 @@ export async function getClassRanking(streamId: string, examId: string) {
   const sorted = averages.sort((a: any, b: any) => b.average - a.average);
   const ranking = new Map<string, number>();
   
+  // Standard competition ranking (1, 1, 3, 4 for ties)
+  let rank = 1;
   for (let i = 0; i < sorted.length; i++) {
-    // Standard competition ranking: rank is position + 1 (1, 1, 3, 4 for ties)
-    ranking.set(sorted[i].studentId, i + 1);
+    if (i > 0 && sorted[i].average !== sorted[i - 1].average) {
+      rank = i + 1;
+    }
+    ranking.set(sorted[i].studentId, rank);
   }
   return ranking;
 }
