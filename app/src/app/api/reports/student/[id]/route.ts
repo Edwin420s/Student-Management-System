@@ -21,6 +21,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   if (!examId) return NextResponse.json({ error: 'examId required' }, { status: 400 });
 
   const exam = await prisma.exam.findUnique({ where: { id: examId } });
+  if (!exam) return NextResponse.json({ error: 'Exam not found' }, { status: 404 });
+
   const scoresForExam = student.scores.filter((s: any) => s.examId === examId);
   const { total, average } = await getStudentTotalAndAverage(student.id, examId);
   const rankingMap = await getClassRanking(student.streamId, examId);
