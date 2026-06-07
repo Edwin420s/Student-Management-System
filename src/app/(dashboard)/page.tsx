@@ -9,10 +9,15 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getDashboardStats().then(data => {
-      setStats(data);
-      setLoading(false);
-    });
+    getDashboardStats()
+      .then(data => {
+        setStats(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Failed to fetch dashboard stats:', error);
+        setLoading(false);
+      });
   }, []);
 
   if (loading) return <div>Loading...</div>;
