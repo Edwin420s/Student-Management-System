@@ -2,7 +2,7 @@
 
 A comprehensive, production-grade web-based Student Management System designed to automate core academic workflows for educational institutions. Built as a full-stack application demonstrating modern software engineering practices, clean architecture, and enterprise-grade features.
 
-## 🚀 Tech Stack
+## Tech Stack
 
 ### Frontend
 - **Framework**: Next.js 14.2.15 (App Router) - Full-stack React framework with server components
@@ -40,7 +40,7 @@ A comprehensive, production-grade web-based Student Management System designed t
 - **Date Handling**: Native JavaScript Date API
 - **String Manipulation**: clsx, tailwind-merge - Conditional className utilities
 
-## ✨ Features
+## Features
 
 ### Core Assessment Requirements (100% Complete)
 - **Class Stream Management**: Create, view, update, and delete class streams (e.g., Form 1A, Form 1B)
@@ -67,7 +67,7 @@ A comprehensive, production-grade web-based Student Management System designed t
 - **Responsive Design**: Mobile-first design that works on all screen sizes
 - **Teacher Remarks Auto-Generator**: Automatic performance remarks based on scores
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 student-management-system/
@@ -154,7 +154,7 @@ student-management-system/
 └── tsconfig.json                # TypeScript configuration
 ```
 
-## 🗄️ Database Schema
+## Database Schema
 
 The system uses a well-designed relational database schema with proper normalization and constraints:
 
@@ -223,7 +223,7 @@ The system uses a well-designed relational database schema with proper normaliza
 - **Indexes**: Optimized queries with proper indexing on foreign keys
 - **JSON Support**: Flexible data storage in audit logs
 
-## 🔐 Authentication & Authorization
+## Authentication & Authorization
 
 ### JWT-Based Authentication
 - Secure JWT tokens with 7-day expiration
@@ -241,7 +241,7 @@ The system uses a well-designed relational database schema with proper normaliza
 - Redirect to login for unauthenticated users
 - Redirect to dashboard for authenticated users on login page
 
-## 📊 Results Processing Engine
+## Results Processing Engine
 
 ### Grade Calculation
 - Configurable grading scales via database
@@ -258,7 +258,7 @@ The system uses a well-designed relational database schema with proper normaliza
 - Zod validation ensures score range (0-100)
 - Transaction-based bulk score updates for consistency
 
-## 📄 PDF Reporting System
+## PDF Reporting System
 
 ### Individual Report Cards
 - Student information and class details
@@ -282,7 +282,7 @@ The system uses a well-designed relational database schema with proper normaliza
 - Timestamp tracking
 - Links to verification endpoint
 
-## 🛠️ Setup Instructions
+## Setup Instructions
 
 ### Prerequisites
 - Node.js 20+ installed
@@ -344,7 +344,7 @@ The application will be available at `http://localhost:3000`
 
 **Important**: Change the default password after first login for security.
 
-## 🌐 API Documentation
+## API Documentation
 
 ### Authentication Endpoints
 
@@ -661,7 +661,7 @@ Export students to Excel file.
 
 **Response:** Excel file download
 
-## 🚀 Deployment
+## Deployment
 
 ### Vercel Deployment (Recommended)
 
@@ -758,7 +758,7 @@ Export students to Excel file.
 - Automatic backups
 - Good for full-stack deployment
 
-## 🧪 Testing
+## Testing
 
 ### Manual Testing Checklist
 
@@ -825,16 +825,16 @@ Export students to Excel file.
 - [ ] Filter by entity
 - [ ] Verify action logging
 
-## 📋 Assessment Requirements Compliance
+## Assessment Requirements Compliance
 
 ### Functional Requirements (100% Complete)
 
-✅ **Class Stream Management**
+ **Class Stream Management**
 - Create class streams
 - View all class streams
 - View details of a single class stream
 
-✅ **Student Management**
+ **Student Management**
 - Register students and assign to class stream
 - Edit student information
 - Delete student information
@@ -842,45 +842,45 @@ Export students to Excel file.
 - View all students
 - View students by specific class stream
 
-✅ **Subject Management**
+ **Subject Management**
 - Create and manage subjects
 - Assign subjects to class streams
 - View all subjects
 - Edit and delete subject information
 
-✅ **Student Assessment and Scoring**
+ **Student Assessment and Scoring**
 - Record examination and continuous assessment scores
 - Edit and update student scores
 - View individual student performance by subject
 - View class performance for selected subject
 - Validate score entries and prevent duplicate submissions
 
-✅ **Results Processing**
+ **Results Processing**
 - Calculate total marks obtained by each student
 - Calculate average scores per student
 - Determine grades based on configurable grading scales
 - Calculate subject positions and overall class positions
 - Automatically rank students within class stream
 
-✅ **Reporting**
+ **Reporting**
 - Generate individual PDF report cards
 - Generate PDF class performance reports
 
 ### Recommended Technologies (100% Compliant)
 
-✅ **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
-✅ **Backend**: Node.js, Next.js API Routes
-✅ **Database**: PostgreSQL with Prisma ORM
-✅ **Version Control**: Git/GitHub
-✅ **Deployment**: Ready for Vercel, Netlify, Railway
+ **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
+ **Backend**: Node.js, Next.js API Routes
+ **Database**: PostgreSQL with Prisma ORM
+ **Version Control**: Git/GitHub
+ **Deployment**: Ready for Vercel, Netlify, Railway
 
 ### Submission Requirements
 
-✅ **Git Repository URL**: https://github.com/Edwin420s/Student-Management-System
-✅ **Hosted Application URL**: https://studentmanagementsystem134.netlify.app
-✅ **User Guide**: Comprehensive documentation in this README
+ **Git Repository URL**: https://github.com/Edwin420s/Student-Management-System
+ **Hosted Application URL**: https://studentmanagementsystem134.netlify.app
+ **User Guide**: Comprehensive documentation in this README
 
-## 🎨 Design System
+## Design System
 
 ### Color Palette
 The application uses a custom Material Design-inspired color system with light and dark mode support:
@@ -911,7 +911,7 @@ All UI components follow the shadcn/ui pattern:
 - Screen reader friendly
 - Dark mode compatible
 
-## 🔒 Security Best Practices
+## Security Best Practices
 
 ### Implemented Security Measures
 
@@ -955,7 +955,7 @@ All UI components follow the shadcn/ui pattern:
 6. **Email Verification**: Verify user email addresses
 7. **2FA**: Add two-factor authentication for admins
 
-## 📈 Performance Optimization
+## Performance Optimization
 
 ### Implemented Optimizations
 
@@ -985,7 +985,7 @@ All UI components follow the shadcn/ui pattern:
 4. **Lazy Loading**: Implement lazy loading for heavy components
 5. **Pagination**: Add pagination for large data sets
 
-## 🤝 Contributing
+## Contributing
 
 This project was built as an assessment submission. For contributions or questions:
 
@@ -994,11 +994,11 @@ This project was built as an assessment submission. For contributions or questio
 3. Make your changes
 4. Submit a pull request
 
-## 📝 License
+## License
 
 Proprietary - Built for Ikonex Academy Assessment
 
-## 👤 Author
+## Author
 
 **Edwin Mwiti**
 - Email: eduedwyn5@gmail.com
@@ -1006,7 +1006,7 @@ Proprietary - Built for Ikonex Academy Assessment
 - LinkedIn: linkedin.com/in/edwinmwiti234
 - GitHub: Edwin420s
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Ikonex Systems for the assessment opportunity
 - Next.js team for the excellent framework
